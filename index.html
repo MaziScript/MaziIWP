@@ -1,29 +1,65 @@
-
 <!DOCTYPE html>
 <html lang="zh">
-    <head>
-        <meta charset="utf-8" />
-        <title>MaziScript 在线写作平台</title>
-        <link rel="stylesheet" href="css/style.css" />
-        <link rel="stylesheet" href="css/editormd.css" />
-        <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
-    </head>
-    <body>
-        <div id="layout">
-            <header>
-                <h1>MaziScript 在线写作平台</h1>
-            </header>
 
-            <br />
+<head>
+	<meta charset="utf-8" />
+	<title>MaziScript 在线写作平台</title>
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/editormd.css" />
+	<link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
+</head>
 
-            <div id="test-editormd">
-                <textarea style="display:none;"></textarea>
-            </div>
-        </div>
-        <script src="js/jquery.min.js"></script>
-        <script src="editormd.js"></script>
-        <script type="text/javascript">
+<body>
+	<div id="layout">
+		<header>
+			<h1>MaziScript 在线写作平台</h1>
+		</header>
+
+		<br />
+
+		<div id="test-editormd">
+			<textarea style="display:none;"></textarea>
+		</div>
+	</div>
+	<script src="js/jquery.min.js"></script>
+	<script src="editormd.js"></script>
+    <script type="text/javascript" src="lib/zip.js"></script>
+	<script type="text/javascript">
+            zip.workerScriptsPath = "lib/";
 			var testEditor;
+
+            var blob;
+            function unzipBlob(blob, callback) {
+                    zip.createReader(new zip.BlobReader(blob), function(zipReader) {
+                        zipReader.getEntries(function(entries) {
+                            entries[0].getData(new zip.BlobWriter(zip.getMimeType(entries[0].filename)), function(data) {
+                                zipReader.close();
+                                callback(data);
+                            });
+                        });
+                    }, onerror);
+            }
+
+            function logBlobText(blob) {
+                var reader = new FileReader();
+	            reader.onload = function(e) {
+		            console.log(e.target.result);
+		            console.log("--------------");
+	            };
+	            reader.readAsText(blob);
+            }
+
+            function zipBlob(blob, callback) {
+	zip.createWriter(new zip.BlobWriter("application/zip"), function(zipWriter) {
+		zipWriter.add(FILENAME, new zip.BlobReader(blob), function() {
+			zipWriter.close(callback);
+		});
+	}, onerror);
+}
+
+function onerror(message) {
+	console.error(message);
+}  
 
             $(function() {
                 testEditor = editormd("test-editormd", {
@@ -35,15 +71,40 @@
                     flowChart       : true, 
                     sequenceDiagram : true,
 
+                    toolbarIcons : function(){
+                        return ["mazi_submit", "mazi_save", "mazi_open", "|", 
+                                "undo", "redo", "|", 
+                                "bold", "del", "italic", "quote", "|", 
+                                "list-ul", "list-ol", "hr", "|",
+                                "link", "reference-link", "image",  "table", "datetime", "emoji", "html-entities", "|",
+                                "goto-line", "watch", "preview", "fullscreen", "clear", "search", "|",
+                                "help", "info"];
+                    },
+                    toolbarIconsClass :{
+                        mazi_submit : "fa-check",
+                        mazi_save   : "fa-save",
+                        mazi_open   : "fa-folder-open"
+                    },
+                    toolbarIconTexts :{
+                        mazi_submit : "完成写作",
+                        mazi_save   : "提交保存",
+                        mazi_open   : "打开作品"
+                    },
+                    toolbarHandlers : {
+                        mazi_submit : function(){
+                            //this.executePlugin("submit", "/");
+                            zipBlob(blob, function(zippedBlob) {
+                                unzipBlob(zippedBlob, function(unzippedBlob) {
+                                    logBlobText(unzippedBlob);
+                                });
+                            });
+                        }
+                    },
+
                     placeholder     : "试着写些什么……"
-                });
-                
-                $("#append-btn").click(function(){
-                    $.get("./test.md", function(md){
-                        testEditor.appendMarkdown(md);
-                    });
                 });
             });
         </script>
-    </body>
+</body>
+
 </html>
