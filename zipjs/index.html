@@ -1,0 +1,26 @@
+<html>
+
+<body>
+  <script type="text/javascript" src="../lib/jszip.js"></script>
+
+  <script>
+    function handleFile(f) {
+
+        zip.forEach(function (relativePath, zipEntry) {
+          $fileContent.append($("<li>", {
+            text : zipEntry.name
+          }));
+        });
+      }, function (e) {
+        
+      };
+    }
+
+    var files = evt.target.files;
+    for (var i = 0, f; f = files[i]; i++) {
+        handleFile(f);
+    }
+  </script>
+</body>
+
+</html>
