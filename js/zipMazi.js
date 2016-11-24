@@ -10,12 +10,12 @@ var maziUtils = function(){
     }
 }
 
-function getFile(zipName, fileName, asyncType) {
+function getFile(zipName, fileName, asyncType, splitId) {
      return JSZip.loadAsync(zipName)
         .then(function (zip) {
             for (var id in zip.files) {
                 if(zip.files[id].dir != true) {
-                    if (zip.files[id].name.split("/")[1] == fileName) {
+                    if (zip.files[id].name.split("/")[splitId] == fileName) {
                         //Test
                         console.warn(zip.files[id].name);
 
@@ -29,4 +29,8 @@ function getFile(zipName, fileName, asyncType) {
                 }
             }
         });
+}
+
+var getMaziInfoJson = function(zipName){
+    return getFile(zipName, "mazi_info.json", "string", 1);
 }
