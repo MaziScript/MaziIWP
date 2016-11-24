@@ -11,33 +11,22 @@ var maziUtils = function(){
 }
 
 function getFile(zipName, fileName, asyncType) {
-    var ans;
-
-    JSZip.loadAsync(zipName)
+     return JSZip.loadAsync(zipName)
         .then(function (zip) {
-            var arr = zip.files;
-            console.log(arr);
-            for (var zipEntry in arr) {
-                if(zipEntry.dir != true) {
-                    console.log(zipEntry);
-                    if (zipEntry.name.split("/")[1] == fileName) {
-                        zip.file(zipEntry.name).async(asyncType)
+            for (var id in zip.files) {
+                if(zip.files[id].dir != true) {
+                    if (zip.files[id].name.split("/")[1] == fileName) {
+                        //Test
+                        console.warn(zip.files[id].name);
+
+                        return zip.file(zip.files[id].name).async(asyncType)
                         .then(function success(content) {
-                            //Add success code here.
-                            ans = content;
+                            return content;
                         }, function error(e) {
-                            //Add error code here.
-                            ans = "{\"type\" : \"error\", \"message\" : \"" + e.message + "\"}";
+                            return "{\"type\" : \"error\", \"message\" : \"" + e.message + "\"}";
                         });
                     }
-                    else{
-                        ans = "{\"type\" : \"error\", \"message\" : \"" + "e.message" + "\"}";
-                    }
                 }
-            };
-        }, function (e) {
-            ans = "{\"type\" : \"error\", \"message\" : \"" + e.message + "\"}";
-        })
-        .done();
-        return ans;
+            }
+        });
 }

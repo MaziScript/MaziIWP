@@ -84,14 +84,22 @@
     <script type="text/javascript">
         $("document").ready(function(){
             $("#maziUpload").change(function(evt) {
-                 var info = JSON.parse(getFile(evt.target.files[0], "mazi_info.json", "string"));
+                getFile(evt.target.files[0], "mazi_info.json", "string").then(
+                    function(result){
+                        var info = JSON.parse(result);
 
+                        //Test
+                        console.log(info);
+                    }
+                );
+                 /*
                  if(info.type == "error"){
                     console.log(info.message);
                  }
                  else{
                     console.log("weeeee");
                  }
+                 */
             });
         });
     </script>
