@@ -78,21 +78,12 @@
     </script>
 
     <input type="file" id="maziUpload" style="display:none">
-    <script type="text/javascript" src="lib/jszip.js" />
-    <script type="text/javascript" src="lib/jszip-utils.js" />
-    <script type="text/javascript" src="js/zipMazi.js" />
+    <script type="text/javascript" src="lib/jszip.js"></script>
+    <script type="text/javascript" src="lib/jszip-utils.js"></script>
+    <script type="text/javascript" src="js/zipMazi.js"></script>
     <script type="text/javascript">
-        $(function(){
-            ("#maziUpload").on("change", function(evt){
-                alert("123");
-            }
-        });
-
-/*
-            $("#maziUpload").on("change", function(evt){
-                alert("123");
-                /*
-                 console.log("123");
+        $("document").ready(function(){
+            $("#maziUpload").change(function(evt) {
                  var info = JSON.parse(getFile(evt.target.files[0], "mazi_info.json", "string"));
 
                  if(info.type == "error"){
@@ -101,10 +92,10 @@
                  else{
                     console.log("weeeee");
                  }
-                 
             });
-            */
+        });
     </script>
+
 </body>
 
 </html>
