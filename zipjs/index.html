@@ -1,25 +1,45 @@
 <html>
 
 <body>
+  <input type="file" id="file">
   <script type="text/javascript" src="../lib/jszip.js"></script>
-
+  <script type="text/javascript" src="../lib/jszip-utils.js"></script>
+  <script src="../js/jquery.min.js"></script>
   <script>
-    function handleFile(f) {
+(function() {
+    $("#file").on("change", function(evt) {
+        function handleFile(f) {
+            JSZip.loadAsync(f)
+                .then(function(zip) {
+                    zip.forEach(function(relativePath, zipEntry) {
+                        console.log(zipEntry.name);
 
-        zip.forEach(function (relativePath, zipEntry) {
-          $fileContent.append($("<li>", {
-            text : zipEntry.name
-          }));
-        });
-      }, function (e) {
-        
-      };
-    }
+                        try{
+                            zip.file(zipEntry.name).async("string")
+                            .then(function success(content){
+                                console.log(content);
+                            }, function error(e){
+                                //err
+                            });
+                        }
+                        catch(e){
+                            console.log("err..");
+                        }
 
-    var files = evt.target.files;
-    for (var i = 0, f; f = files[i]; i++) {
-        handleFile(f);
-    }
+                    });
+                }, function(e) {
+                    console.log("Error reading " + f.name + " : " + e.message);
+                });
+        }
+
+        console.log(JSON.stringify(evt.target.files));
+
+        var files = evt.target.files;
+        for (var i = 0, f; f = files[i]; i++) {
+            handleFile(f);            
+        }        
+    });
+})();
   </script>
 </body>
 

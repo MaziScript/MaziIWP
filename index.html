@@ -21,11 +21,11 @@
 			<textarea style="display:none;"></textarea>
 		</div>
 	</div>
-	<script src="js/jquery.min.js"></script>
-	<script src="editormd.js"></script>
-    <script type="text/javascript" src="lib/zip.js"></script>
-	<script type="text/javascript">
-            zip.workerScriptsPath = "lib/";
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="editormd.js"></script>
+
+    <!-- Editor基本参数 -->
+    <script type="text/javascript">
 			var testEditor;
 
             $(function() {
@@ -61,6 +61,7 @@
                         },
                         mazi_open : function(){
                             //TODO: 打开
+                            $("#maziUpload").click();
                         }
                     },
                     lang: {
@@ -74,7 +75,36 @@
                     placeholder     : "试着写些什么……"
                 });
             });
-        </script>
+    </script>
+
+    <input type="file" id="maziUpload" style="display:none">
+    <script type="text/javascript" src="lib/jszip.js" />
+    <script type="text/javascript" src="lib/jszip-utils.js" />
+    <script type="text/javascript" src="js/zipMazi.js" />
+    <script type="text/javascript">
+        $(function(){
+            ("#maziUpload").on("change", function(evt){
+                alert("123");
+            }
+        });
+
+/*
+            $("#maziUpload").on("change", function(evt){
+                alert("123");
+                /*
+                 console.log("123");
+                 var info = JSON.parse(getFile(evt.target.files[0], "mazi_info.json", "string"));
+
+                 if(info.type == "error"){
+                    console.log(info.message);
+                 }
+                 else{
+                    console.log("weeeee");
+                 }
+                 
+            });
+            */
+    </script>
 </body>
 
 </html>
