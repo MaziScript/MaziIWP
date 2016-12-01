@@ -1,4 +1,33 @@
 {
     "bookName" : "A Book",
-    "author" : "Yesterday17"
+    "author" : "Yesterday17",
+
+    "chapters" : {
+        "chapterFolder" : "Chapters/",
+        "chapterNum" : 3,
+        
+        "_1" : {
+            "filename" : "chapter1.json",
+            "name" : "第一章 呵呵",
+            "script" : "maziscript",
+            "debug" : false ,
+            "complied" : false
+        },
+
+        "_2" : {
+            "filename" : "chapter2.json",
+            "name" : "fsdfdsdc dfd",
+            "script" : "maziscript",
+            "debug" : false ,
+            "complied" : false
+        },
+
+        "_3" : {
+            "filename" : "chapter3.json",
+            "name" : "dfdsgfnghfs",
+            "script" : "maziscript",
+            "debug" : false ,
+            "complied" : false
+        }
+    }
 }

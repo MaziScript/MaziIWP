@@ -1,0 +1,6 @@
+#zipjs Debug Folder
+zipjs/
+
+#Files
+*.zip
+*.json

@@ -81,17 +81,50 @@
     <script type="text/javascript" src="lib/jszip.js"></script>
     <script type="text/javascript" src="lib/jszip-utils.js"></script>
     <script type="text/javascript" src="js/zipMazi.js"></script>
+    <script type="text/javascript" src="js/errMazi.js"></script>
     <script type="text/javascript">
         $("document").ready(function(){
             $("#maziUpload").change(function(evt) {
-                getMaziInfoJson(evt.target.files[0]).then(
+                var file = evt.target.files[0];
+
+                var load = loadZip(file);
+                var zipContent;
+
+                load.then(function(zip){
+                    zipContent = zip;
+                    return zip;
+                })
+                .then(getMaziInfoJson)
+                .then(function(maziInfo){
+                    console.log(maziInfo);
+
+                    var a = getMaziChapterNameList(maziInfo);
+                    var b = getMaziChapterFileNameList(maziInfo);
+
+                    console.log(a);
+                    console.log(b);
+                })
+                
+                /*
+                getMaziInfoJson(file).then(
                     function(result){
                         var info = JSON.parse(result);
 
-                        //Test
-                        console.log(info);
+                        var chapter = getMaziChapterFileNameList(info);
+
+                        for(var i in chapter){
+                            getMaziChapterJson(file, chapter[i]).then(
+                                function(result){
+                                    if(typeof result != "undefined"){
+                                        var cp = JSON.parse(result);
+                                    }
+                                    console.log(cp);
+                                }
+                            );
+                        }
                     }
                 );
+                */
             });
         });
     </script>
