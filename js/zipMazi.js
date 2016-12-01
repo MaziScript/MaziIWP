@@ -59,5 +59,3 @@ var getMaziChapterNameList = function (maziInfo) {
 var getMaziChapterFileNameList = function (maziInfo) {
     return getMaziChapterEntryList(maziInfo, "filename");
 }
-
-//var getMaziChapterJson = function(zipName, chapterid)

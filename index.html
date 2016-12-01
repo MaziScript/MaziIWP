@@ -96,13 +96,10 @@
                 })
                 .then(getMaziInfoJson)
                 .then(function(maziInfo){
-                    console.log(maziInfo);
+                    var info = JSON.parse(maziInfo);
 
-                    var a = getMaziChapterNameList(maziInfo);
-                    var b = getMaziChapterFileNameList(maziInfo);
-
-                    console.log(a);
-                    console.log(b);
+                    var chapter_name = getMaziChapterNameList(info);
+                    var chapter_fileName = getMaziChapterFileNameList(info);
                 })
                 
                 /*
