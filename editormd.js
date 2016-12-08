@@ -90,6 +90,7 @@
     
     editormd.defaults     = {
         mode                 : "gfm",          //gfm or markdown
+        mazi           : false,          //Use MaziScript or Not.
         name                 : "",             // Form element name
         value                : "",             // value for CodeMirror, if mode not gfm/markdown
         theme                : "",             // Editor.md self themes, before v1.5.0 is CodeMirror theme, default empty
@@ -1960,6 +1961,9 @@
          * 解析和保存Markdown代码
          * Parse & Saving Markdown source code
          * 
+         * Edited by Yesterday17.
+         * 增加MaziScript的处理部分，当没有发现MaziScript对象时则使用默认Markdown。
+         * 
          * @returns {editormd}     返回editormd的实例对象
          */
         
@@ -1976,13 +1980,18 @@
             
             var cm               = this.cm;            
             var cmValue          = cm.getValue();
+
             var previewContainer = this.previewContainer;
 
             if (settings.mode !== "gfm" && settings.mode !== "markdown") 
             {
                 this.markdownTextarea.val(cmValue);
-                
+            
                 return this;
+            }
+
+            if(settings.mazi){
+                //TODO: 增加MaziScript的处理部分
             }
             
             var marked          = editormd.$marked;
