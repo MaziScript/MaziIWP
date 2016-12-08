@@ -1990,8 +1990,9 @@
                 return this;
             }
 
-            if(settings.mazi){
+            if(settings.mazi && typeof MaziScript !== "undefined"){
                 //TODO: 增加MaziScript的处理部分
+                cmValue = MaziScript.parse(cmValue);
             }
             
             var marked          = editormd.$marked;
