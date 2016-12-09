@@ -155,39 +155,23 @@
                     var chapter_fileName = getMaziChapterFileNameList(info);
 
                     for(var i in chapter_name){
-                        $("#mazi_contents").append("<li id=" + chapter_fileName[i] + "\"><a>" + chapter_name[i] + "</a></li>");
-                        $("#" + chapter_fileName[i]).click(function(){
+                        $("#mazi_contents").append("<li id=\"" + chapter_fileName[i] + "\"><a href=\"" + "javascript:void(0);" + "\">" + chapter_name[i] + "</a></li>");
+
+                        (function(vari){
+                            $("#" + chapter_fileName[vari]).click(function(){
                             //增加保存
-                            getMaziChapterJson(zipContent, chapter_fileName[i]).then(
-                                function(content){
-                                    console.log(content);
-                                    testEditor.setMarkdown(JSON.parse(content));
-                                }
-                            )
-                        })
+                                getMaziChapterJson(zipContent, chapter_fileName[vari]).then(
+                                    function(content){
+                                        (function(text){
+                                            testEditor.setMarkdown(JSON.parse(text));
+                                        })(content);
+                                    }
+                                );
+                            });
+                        })(i);
+                        
                     }
                 })
-                
-                /*
-                getMaziInfoJson(file).then(
-                    function(result){
-                        var info = JSON.parse(result);
-
-                        var chapter = getMaziChapterFileNameList(info);
-
-                        for(var i in chapter){
-                            getMaziChapterJson(file, chapter[i]).then(
-                                function(result){
-                                    if(typeof result != "undefined"){
-                                        var cp = JSON.parse(result);
-                                    }
-                                    console.log(cp);
-                                }
-                            );
-                        }
-                    }
-                );
-                */
             });
         });
     </script>

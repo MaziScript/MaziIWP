@@ -29,7 +29,7 @@ var getMaziInfoJson = function (zip) {
 }
 
 var getMaziChapterJson = function (zip, fileName) {
-    return getFile(zip, fileName, "string", 2);
+    return getFile(zip, fileName + ".json", "string", 2);
 }
 
 var getMaziChapterEntryList = function (maziInfo, entry) {

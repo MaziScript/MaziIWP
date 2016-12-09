@@ -2250,13 +2250,21 @@
          * 设置和传入编辑器的markdown源文档
          * Set Markdown source document
          * 
+         * 注: 已MaziScript化。
+         * 
          * @param   {String}    md     要传入的markdown源文档
          * @returns {editormd}         返回editormd的实例对象
          */
         
         setMarkdown : function(md) {
-            this.cm.setValue(md || this.settings.markdown);
+            if(this.settings.mazi && typeof MaziScript !== "undefined" && typeof md == "object"){
+                //TODO: 增加MaziScript的处理部分
+                MaziScript.parse(md);
+                this.cm.setValue(MaziScript.getOrigin());
+                return this;
+            }
             
+            this.cm.setValue(md || this.settings.markdown);
             return this;
         },
         
