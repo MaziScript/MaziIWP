@@ -47,7 +47,7 @@ var getMaziChapterEntryList = function (maziInfo, entry) {
         return arrChapter;
     }
     else {
-        console.log(errMazi["chapter_not_found"]);
+        console.error("Chapters not found!");
         return new Array();
     }
 }
@@ -58,4 +58,9 @@ var getMaziChapterNameList = function (maziInfo) {
 
 var getMaziChapterFileNameList = function (maziInfo) {
     return getMaziChapterEntryList(maziInfo, "filename");
+}
+
+var editChapterFile = function(zip, text){
+    //
+    zip.file("")
 }
