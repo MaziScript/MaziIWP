@@ -1,0 +1,202 @@
+<html><head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>MaziScript 在线写作平台</title>
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/editormd.css">
+        <link href="css/cssEditor.css" rel="stylesheet">
+        <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon">
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media
+        queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file://
+        -->
+        <!--[if lt IE 9]>
+            <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head><body>
+        <div class="navbar navbar-default navbar-static-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><span>MaziScript</span><br></a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#">Home</a>
+                        </li>
+                        <li class="active">
+                            <a href="#">Editor</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-2" style="padding-right:0px">
+                        <h3 class="text-center">目录</h3>
+                        <hr>
+                        <ol class="text-left" id="mazi_contents">
+                        </ol>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="alert alert-success" role="alert" style="padding-left:20px;padding-right:0px">
+                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            在使用MaziScript，请做好随时保存的准备。
+                        </div>
+
+                        <div id="test-editormd">
+                            <textarea style="display:none;"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="section section-primary">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h1 class="text-left">MaziScript.js</h1>
+                        <p class="text-left">MaziScript是一款为小说作者打造的轻量级标记性脚本语言，旨在为小说作者提供良好的写作环境，并且培养作者优秀的写作风格。
+                            <br>
+                            <br>本项目在Github开源，使用MIT License。</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="text-info text-right">
+                            <br>
+                            <br>
+                        </p>
+                        <div class="row">
+                            <div class="col-md-12 hidden-lg hidden-md hidden-sm text-left">
+                                <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a>
+                                <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
+                                <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
+                                <a href="#"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 hidden-xs text-right">
+                                <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a>
+                                <a href="https://twitter.com/Yesterday17CN"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
+                                <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
+                                <a href="https://github.com/yesterday17"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!--以下为Javascript内容-->
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="lib/MaziScript.js"></script>
+        <script type="text/javascript" src="editormd.js"></script>
+        <!-- Editor基本参数 -->
+        <script type="text/javascript">
+            var testEditor;
+            
+                        $(function() {
+                            testEditor = editormd("test-editormd", {
+                                mazi            : true,
+                                width           : "90%",
+                                height          : 840,
+                                path            : "lib/",
+                                emoji           : true,
+                                taskList        : true,
+                                flowChart       : true, 
+                                sequenceDiagram : true,
+            
+                                toolbarIcons : function(){
+                                    return ["mazi_submit", "mazi_save", "mazi_open", "|", 
+                                            "undo", "redo", "|", 
+                                            "hr", "|",
+                                            "goto-line", "watch", "preview", "clear", "search", "|",
+                                            "help", "info"];
+                                },
+                                toolbarIconsClass :{
+                                    mazi_submit : "fa-check",
+                                    mazi_save   : "fa-save",
+                                    mazi_open   : "fa-folder-open"
+                                },
+                                toolbarHandlers : {
+                                    mazi_submit : function(){
+                                        //this.executePlugin("submit", "/");
+                                    },
+                                    mazi_save : function(){
+                                        //TODO: 保存
+                                    },
+                                    mazi_open : function(){
+                                        //TODO: 打开
+                                        $("#maziUpload").click();
+                                    }
+                                },
+                                lang: {
+                                    toolbar: {
+                                        mazi_submit : "完成写作",
+                                        mazi_save   : "提交保存",
+                                        mazi_open   : "打开作品"
+                                    }
+                                },
+            
+                                placeholder     : "试着写些什么……"
+                            });
+                        });
+        </script>
+        <input type="file" id="maziUpload" style="display:none">
+        <script type="text/javascript" src="lib/jszip.js"></script>
+        <script type="text/javascript" src="lib/jszip-utils.js"></script>
+        <script type="text/javascript" src="js/zipMazi.js"></script>
+        <script type="text/javascript" src="js/errMazi.js"></script>
+        <script type="text/javascript">
+            $("document").ready(function(){
+                $("#maziUpload").change(function(evt) {
+                    var file = evt.target.files[0];
+    
+                    var load = loadZip(file);
+                    var zipContent;
+    
+                    load.then(function(zip){
+                        zipContent = zip;
+                        return zip;
+                    })
+                    .then(getMaziInfoJson)
+                    .then(function(maziInfo){
+                        var info = JSON.parse(maziInfo);
+    
+                        var chapter_name = getMaziChapterNameList(info);
+                        var chapter_fileName = getMaziChapterFileNameList(info);
+    
+                        for(var i in chapter_name){
+                            $("#mazi_contents").append("<li id=\"" + chapter_fileName[i] + "\"><a href=\"" + "javascript:void(0);" + "\">" + chapter_name[i] + "</a></li>");
+    
+                            (function(vari){
+                                $("#" + chapter_fileName[vari]).click(function(){
+                                //增加保存
+                                    getMaziChapterJson(zipContent, chapter_fileName[vari]).then(
+                                        function(content){
+                                            (function(text){
+                                                testEditor.setMarkdown(JSON.parse(text));
+                                            })(content);
+                                        }
+                                    );
+                                });
+                            })(i);
+                            
+                        }
+                    })
+                });
+            });
+        </script>
+        <script src="js/bootstrap.min.js"></script>
+    
+
+</body></html>

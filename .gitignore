@@ -4,3 +4,6 @@ zipjs/
 #Files
 *.zip
 *.json
+
+#Others
+less
